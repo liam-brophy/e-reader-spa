@@ -1,11 +1,13 @@
-import React from 'react';
+import React from "react";
+import StoryList from "./StoryList";
 
-const Home = () => {
-    return (
-        <div>
-            <h1>Hi</h1>
-        </div>
-    );
-}
+const Home = ({ stories }) => {
+  return (
+    <div>
+      <h1>Library</h1>
+      <StoryList stories={stories} />
+    </div>
+  );
+};
 
 export default Home;

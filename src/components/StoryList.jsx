@@ -5,7 +5,7 @@ const BookList = ({ stories }) => {
   return (
     <div>
       {stories.map((story) => (
-        <BookCard key={story.id} story={story} />
+        <StoryCard key={story.id} story={story} />
       ))}
     </div>
   );
