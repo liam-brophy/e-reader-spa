@@ -3,19 +3,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import ReadingView from "./components/ReadingView";
 import Notes from "./components/Notes";
-import NotFound from "./components/NotFound";
+// import NotFound from "./components/NotFound";
 
-const AppRoutes = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/read/:bookId" element={<ReadingView />} />
-        <Route path="/notes" element={<Notes />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
-      </Routes>
-    </Router>
-  );
+const AppRoutes = ({stories}) => {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home stories={stories} />} />
+                <Route path="/read/:bookId" element={<ReadingView stories={stories} />} />
+                <Route path="/notes" />
+            </Routes>
+        </Router>
+    );
 };
 
 export default AppRoutes;

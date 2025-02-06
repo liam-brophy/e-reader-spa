@@ -1,5 +1,5 @@
 {
-    "books": [
+    "stories": [
       {
         "id": 1,
         "image": "",
@@ -20,7 +20,7 @@
         "title": "The £1,000,000 Bank-Note",
         "author": "Mark Twain",
         "contentPath": "data/the1000000bank-note.txt"
-      },
+      }
     ],
 
     "notes": [
