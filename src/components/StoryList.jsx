@@ -1,7 +1,7 @@
 import React from "react";
-import BookCard from "./StoryCard";
+import StoryCard from "./StoryCard";
 
-const BookList = ({ stories }) => {
+const StoryList = ({ stories }) => {
   return (
     <div>
       {stories.map((story) => (

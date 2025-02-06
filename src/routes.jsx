@@ -1,20 +1,14 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import ReadingView from "./components/ReadingView";
-import Notes from "./components/Notes";
-// import NotFound from "./components/NotFound";
 
-const AppRoutes = ({stories}) => {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home stories={stories} />} />
-                <Route path="/read/:bookId" element={<ReadingView stories={stories} />} />
-                <Route path="/notes" />
-            </Routes>
-        </Router>
-    );
+const AppRoutes = ({ stories }) => {
+  return (
+    <Routes>
+      <Route path="/" element={<Home stories={stories} />} />
+      <Route path="/notes" element={<div>Notes Page Coming Soon!</div>} />
+    </Routes>
+  );
 };
 
 export default AppRoutes;
