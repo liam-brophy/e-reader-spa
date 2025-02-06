@@ -1,0 +1,40 @@
+{
+    "books": [
+      {
+        "id": 1,
+        "image": "",
+        "title": "2BR02B",
+        "author": "Kurt Vonnegut",
+        "contentPath": "data/2bro2b.txt"
+      },
+      {
+        "id": 2,
+        "image": "",
+        "title": "Beyond Lies The Wub",
+        "author": "Phillip K. Dick",
+        "contentPath": "data/BeyondLiesTheWub.txt"
+      },
+      {
+        "id": 3,
+        "image": "",
+        "title": "The £1,000,000 Bank-Note",
+        "author": "Mark Twain",
+        "contentPath": "data/the1000000bank-note.txt"
+      },
+    ],
+
+    "notes": [
+      {
+        "id": 1,
+        "bookId": 1,
+        "page": 1,
+        "text": "Great opening line. Very suspenseful."
+      },
+      {
+        "id": 2,
+        "bookId": 1,
+        "page": 2,
+        "text": "This metaphor is chilling."
+      }
+    ]
+  }
