@@ -9,6 +9,7 @@ function App() {
   return (
     <>
       <div>
+        <h1>Initial commit check</h1>
       </div>
     </>
   )
