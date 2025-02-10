@@ -1,11 +1,19 @@
 import React from "react";
+import '../index.css';
+import { useNavigate } from "react-router-dom";
 
 const StoryCard = ({ story }) => {
+  const navigate = useNavigate();
+
+  const handleReadStory = () => {
+    navigate(`/reader/${story.id}`);
+  };
+
   return (
-    <div style={{ border: "1px solid #ddd", padding: "10px", margin: "10px" }}>
+    <div onClick={handleReadStory} className="storyCard">
+      <img src={story.image}></img>
       <h2>{story.title}</h2>
-      <p>Author: {story.author}</p>
-      {/* <p>{book.content.substring(0, 100)}...</p> Preview the content */}
+      <p>{story.author}</p>
     </div>
   );
 };

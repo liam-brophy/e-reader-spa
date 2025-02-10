@@ -1,9 +1,10 @@
 import React from "react";
 import StoryCard from "./StoryCard";
+import '../index.css';
 
 const StoryList = ({ stories }) => {
   return (
-    <div>
+    <div className="storyList">
       {stories.map((story) => (
         <StoryCard key={story.id} story={story} />
       ))}
@@ -12,3 +13,4 @@ const StoryList = ({ stories }) => {
 };
 
 export default StoryList;
+
