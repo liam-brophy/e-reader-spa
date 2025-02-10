@@ -102,3 +102,59 @@ nav li {
   font-weight: bold;
   color: #dc3545;
 }
+
+/* Reader text container */
+.reader-text {
+  padding: 1rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  background-color: #f9f9f9;
+}
+
+/* Popover container */
+.comment-popover {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem;
+  border-radius: 5px;
+  z-index: 10;
+  width: 200px;
+}
+
+.comment-textarea {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 0.4rem;
+}
+
+.comment-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.note-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.note-card p {
+  margin: 5px 0;
+}
+
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

@@ -1,77 +1,78 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useParams} from "react-router-dom";
 
 const ReaderView = () => {
   const { storyId } = useParams();
   const [story, setStory] = useState(null);
   const [storyContent, setStoryContent] = useState("");
   const [loading, setLoading] = useState(true);
-
   const [showPopover, setShowPopover] = useState(false);
   const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
   const [selectedText, setSelectedText] = useState("");
   const [commentText, setCommentText] = useState("");
 
+  const popoverRef = useRef(null);
 
+  // Fetch story and content
   useEffect(() => {
-    //FETCH DATA
     const fetchStoryData = async () => {
       try {
         const response = await fetch(`http://localhost:3001/stories/${storyId}`);
-
-        if (!response.ok) {
-          throw new Error("Story not found");
-        }
+        if (!response.ok) throw new Error("Story not found");
 
         const data = await response.json();
         setStory(data);
 
         const storyResponse = await fetch(data.contentPath);
-
-        if (!storyResponse.ok) {
-          throw new Error("Content not found");
-        }
+        if (!storyResponse.ok) throw new Error("Content not found");
 
         const text = await storyResponse.text();
         setStoryContent(text);
-
       } catch (error) {
         console.error("Error fetching story content:", error);
-
-      } finally { //finally denotes running after everything else. We want to stop the loading state regardless of outcome!
+      } finally {
         setLoading(false);
       }
     };
+
     fetchStoryData();
-  }, [storyId]); //this changes via use Params. When the story id changes, data will fetch again with the new id
+  }, [storyId]);
 
-  if (loading) return <div>Loading...</div>;
+  // Handle clicks outside popover to close it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+        setShowPopover(false);
+      }
+    };
 
-  if (!story) return <div>Story not found</div>;
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-
-//getting the users text selection
+  // Get highlighted text
   const getHighlightedText = () => {
     const selection = window.getSelection();
     return selection ? selection.toString() : "";
   };
-//what to do with the users text selection
+
+  // Handle text selection and display popover
   const handleTextSelection = () => {
     const text = getHighlightedText();
     if (text) {
       const rect = window.getSelection().getRangeAt(0).getBoundingClientRect();
-      setPopoverPosition({ x: rect.x, y: rect.y }); //where the Popover will be?
+      setPopoverPosition({ x: rect.x, y: rect.y });
       setSelectedText(text);
       setShowPopover(true);
     }
   };
 
+  // Save comment
   const handleSaveComment = async () => {
-    const newComment = { text: selectedText, comment: commentText };
-
+    const newComment = { text: selectedText, comment: commentText, page: 1, story: storyId};
     try {
-      await fetch(`http://localhost:3000/notes`, {
-        method: "PATCH",
+      await fetch(`http://localhost:3001/notes/`, { 
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newComment),
       });
@@ -81,33 +82,32 @@ const ReaderView = () => {
     }
   };
 
+  if (loading) return <div>Loading...</div>;
+  if (!story) return <div>Story not found</div>;
 
   return (
     <div>
       <h1>{story.title}</h1>
       <p>{story.author}</p>
-      <pre>{storyContent}</pre> //Pre is for preformatted text! rather than css restyling manually
-      <div onMouseUp={handleTextSelection}>
-      <p>{storyText}</p>
-      {showPopover && (
-        <div
-          style={{
-            position: "absolute",
-            top: popoverPosition.y,
-            left: popoverPosition.x,
-            background: "white",
-            border: "1px solid black",
-            padding: "8px",
-          }}
-        >
-          <textarea
-            placeholder="Add a comment"
-            onChange={(e) => setCommentText(e.target.value)}
-          />
-          <button onClick={handleSaveComment}>Save Comment</button>
-        </div>
-      )}
-    </div>
+      <div className="reader-text" onMouseUp={handleTextSelection}>
+        <pre>{storyContent}</pre>
+        {showPopover && (
+          <div
+            ref={popoverRef}
+            className="comment-popover"
+            style={{ top: popoverPosition.y, left: popoverPosition.x }}
+          >
+            <textarea
+              className="comment-textarea"
+              placeholder="Add a comment"
+              onChange={(e) => setCommentText(e.target.value)}
+            />
+            <button className="comment-button" onClick={handleSaveComment}>
+              Save Comment
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
