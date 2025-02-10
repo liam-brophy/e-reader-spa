@@ -1,25 +1,60 @@
 {
     "stories": [
       {
-        "id": 1,
-        "image": "",
+        "id": "1",
+        "image": "https://i.ytimg.com/vi/W7uuYpz4mWE/sddefault.jpg?sqp=-oaymwEmCIAFEOAD8quKqQMa8AEB-AH-BIAC4AOKAgwIABABGGUgUihCMA8=&rs=AOn4CLBcudfBo312X3r0Ct_9XODHUHjaHw",
         "title": "2BR02B",
         "author": "Kurt Vonnegut",
-        "contentPath": "data/2bro2b.txt"
+        "contentPath": "/data/2bro2b.txt"
       },
       {
-        "id": 2,
-        "image": "",
+        "id": "2",
+        "image": "https://m.media-amazon.com/images/I/71XAP9BpMYL.jpg",
         "title": "Beyond Lies The Wub",
         "author": "Phillip K. Dick",
-        "contentPath": "data/BeyondLiesTheWub.txt"
+        "contentPath": "/data/BeyondLiesTheWub.txt"
       },
       {
-        "id": 3,
-        "image": "",
+        "id": "3",
+        "image": "https://acappellabooks.cdn.bibliopolis.com/pictures/249001.jpg?auto=webp&v=1623953857",
         "title": "The £1,000,000 Bank-Note",
         "author": "Mark Twain",
-        "contentPath": "data/the1000000bank-note.txt"
+        "contentPath": "/data/the1000000bank-note.txt"
+      },
+      {
+        "id": "4",
+        "image": "https://www.nyrb.com/cdn/shop/products/Dont-Look-Now.jpg?v=1528394399&width=600",
+        "title": "Don't Look Now",
+        "author": "Daphne du Maurier",
+        "contentPath": "/data/DontLookNow.txt"
+      },
+      {
+        "id": "5",
+        "image": "https://libraryofshortstories.s3.ap-southeast-2.amazonaws.com/small/action.jpg",
+        "title": "The Argonauts of the Air",
+        "author": "H. G. Wells",
+        "contentPath": "/data/theArgonautsofTheAir.txt"
+      },
+      {
+        "id": "6",
+        "image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1448657289i/27998467.jpg",
+        "title": "The Dream",
+        "author": "Mary Shelley",
+        "contentPath": "/data/TheDream.txt"
+      },
+      {
+        "id": "7",
+        "image": "https://www.gutenberg.org/files/14814/14814-h/images/1.jpg",
+        "title": "The Tale of Jemima Puddle-Duck",
+        "author": "Beatrix Potter",
+        "contentPath": "/data/TheTaleOfJemimaPuddleDuck.txt"
+      },
+      {
+        "id": "8",
+        "image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1595421183i/16070323.jpg",
+        "title": "Asleep in Armageddon",
+        "author": "Ray Bradbury",
+        "contentPath": "/data/AsleepinArmageddon.txt"
       }
     ],
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./routes";
 import NavBar from "./components/NavBar";
+import './index.css';
 
 function App() {
   const [stories, setStories] = useState([]);
