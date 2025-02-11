@@ -43,7 +43,7 @@ const Notes = () => {
       <h2>{storyId ? `Notes for Story ${storyId}` : "All Notes"}</h2>
       <div className="notes-container">
         {notes.map((note) => (
-          <NoteCard key={note.id} note={note} /> // Map each note to NoteCard
+          <NoteCard key={note.id} note={note} setNotes={setNotes}/> // Map each note to NoteCard
         ))}
       </div>
     </div>

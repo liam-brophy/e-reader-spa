@@ -158,3 +158,16 @@ nav li {
   flex-direction: column;
   gap: 15px;
 }
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #f0f0f0;
+  height: 10px;
+  margin-top: 20px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.3s ease;
+}
