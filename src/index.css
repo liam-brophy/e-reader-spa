@@ -1,25 +1,130 @@
+.navbar-container {
+  position: fixed; /* Fix the navbar at the top left of the page */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure it appears above other content */
+  background-color: rgba(255, 255, 255, 0.9); /* Optional: adds a slight transparency */
+  width: 50px; /* Set a fixed width for the navbar */
+  height: 100%; /* Make it full height */
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-btn {
+  padding-top: 20px;
+  padding-left: 25px;
+  font-size: 2rem;
+  color: #000000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover effect for the toggle button */
+.toggle-btn:hover {
+  padding-top: 20px;
+  padding-left: 25px;
+  color: #00ff40; 
+  transform: scale(1.1); 
+}
+
+/* Active state for the toggle button (when clicked) */
+.toggle-btn:active {
+  padding-top: 20px;
+  padding-left: 20px;
+  color: #dcdcdc; /* Darker gray color when active */
+  transform: scale(1); /* Return to normal scale when clicked */
+}
+
+nav {
+  position: absolute; /* Position the nav over the content */
+  top: 50px; /* Adjust to push the nav below the toggle button */
+  left: 0;
+  width: 100%;
+  display: none; /* Hide the nav by default */
+  background-color: rgba(255, 255, 255, 0.9); /* Optional: add a background */
+}
+
+.nav.expanded {
+  display: block; /* Show the nav when expanded */
+}
+
+ul {
+  top: 1rem;
+  left: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+li {
+  padding-left: 20px;
+  margin: 1rem 0;
+}
+
+.active-link {
+  font-weight: bold;
+  color: #000;
+}
+
+.collapsed .nav {
+  display: none; /* Ensure nav is hidden in collapsed state */
+}
+
+.nav ul li a {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  color: rgb(124, 124, 124); /* Slight gray font color */
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.nav ul li a:hover {
+  color: rgb(0, 255, 110);
+  transform: scale(1.1);
+}
+
+/* Active link style (keep the active-link class if desired) */
+.nav ul li a.active-link {
+  color: rgb(0, 0, 0); /* Full white for active link */
+}
+
+
 .storyList {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  padding: 1.5rem;
+  grid-template-columns: repeat(3, 1fr); /* Default 3 columns */
+  gap: 2rem; /* Increased space between cards */
+  padding: 2rem; /* Increased padding for more space from the edges */
+  justify-items: center; /* Centers the cards horizontally */
+  max-width: 1200px; /* Optional: Set a max width to prevent too wide layout */
+  margin: 0 auto; /* Centers the entire grid on the page */
 }
 
 @media (min-width: 768px) {
   .storyList {
-    grid-template-Columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* Keeps 3 columns for tablet screens */
   }
 }
 
 @media (min-width: 1024px) {
   .storyList {
-    grid-template-Columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr); /* 4 columns for larger screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .storyList {
+    grid-template-columns: 1fr; /* 1 column for small screens */
   }
 }
 
 .storyCard {
   position: relative;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 2 / 3; /* Ensures all cards have the same aspect ratio */
+  width: 100%; /* Make sure the card spans the available width */
   overflow: hidden;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -31,15 +136,20 @@
 }
 
 .storyCover {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width of the parent */
+  height: 100%; /* Full height of the parent */
+  object-fit: cover; /* Ensure the image covers the card area */
+  object-position: center; /* Center the image inside the card */
+  border-radius: 0.5rem; /* Make sure the image inherits rounded corners */
 }
 
 .storyInfo {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 255, 255, 0.625);
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
   display: flex;
@@ -48,69 +158,20 @@
   padding: 1rem;
 }
 
-.storyCard:hover .story-info {
+.storyCard:hover .storyInfo {
   opacity: 1;
 }
 
 .story-title {
   font-size: 1.125rem;
   font-weight: bold;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .story-author {
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.8);
 }
-
-.navbar-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200px;
-  height: 100vh;
-  background-color: #f8f9fa;
-  z-index: 10;
-}
-
-.main-content {
-  margin-left: 200px;
-  padding: 2rem;
-}
-.navbar-container.collapsed {
-  width: 60px;
-}
-
-.toggle-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-nav li {
-  margin: 1rem 0;
-}
-
-.active-link {
-  font-weight: bold;
-  color: #dc3545;
-}
-
-/* Reader text container */
-.reader-text {
-  padding: 1rem;
-  line-height: 1.6;
-  font-size: 1.1rem;
-  background-color: #f9f9f9;
-}
-
 /* Popover container */
 .comment-popover {
   position: absolute;
@@ -141,12 +202,21 @@ nav li {
   cursor: pointer;
 }
 
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the cards horizontally */
+  gap: 15px;
+}
+
 .note-card {
-  border: 1px solid #ddd;
+  width: 500px; /* fixed width for allllll cards */
+  border: 0.5px solid #000000;
   padding: 15px;
   margin: 10px 0;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   border-radius: 8px;
+  text-align: left;
 }
 
 .note-card p {
@@ -170,4 +240,166 @@ nav li {
   height: 100%;
   background-color: #4caf50;
   transition: width 0.3s ease;
+}
+
+/* index.css or ReaderView.css */
+
+/* Use the Google font */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Styling for the reader text */
+.reader-text {
+  text-align: justify; /* Justify the text */
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 800px;
+  height: 80vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  word-wrap: break-word; /* This breaks long words */
+  overflow-wrap: break-word; /* Modern alternative, also breaks long words */
+}
+
+.reader-text pre {
+  font-family: Playfair-Display;
+  font-size: 1rem;
+  line-height: 1.6;
+  word-wrap: break-word; /* Ensure words break within <pre> as well */
+  overflow-wrap: break-word; /* Ensure overflow wraps in the <pre> */
+  white-space: pre-wrap; /* Make sure text wraps properly in pre-formatted text */
+}
+
+.reader-title {
+  font-family: 'Roboto', sans-serif; /* Or your selected font from Google Fonts */
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center; /* Center align the title */
+  margin-top: 0;
+  padding-top: 20px;
+}
+
+.reader-author {
+  font-family: 'Roboto', sans-serif; /* Use the same font or a complementary one */
+  font-size: 1.1rem;
+  font-weight: normal;
+  text-align: center; /* Center align the author */
+  margin-top: 0;
+  padding-top: 5px;
+  margin-bottom: 20px;
+  color: #555; /* Slightly gray for the author’s name */
+}
+
+/* Ensure each page has a uniform height and is scrollable */
+.page {
+  height: 100%; /* Ensure each page takes full container height */
+  overflow-y: auto; /* Enable scrolling if text overflows */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.pagination-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Keep buttons on the left and right */
+  align-items: center;
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+  padding: 0px;
+  margin-left: 200px;
+  /* margin-right: -400px;  */
+}
+
+
+.pagination-buttons {
+  display: flex;
+  justify-content: space-between; /* Ensures buttons are aligned left and right */
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* Centers the buttons vertically */
+}
+
+.prev-button,
+.next-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 5px 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  background-color: #00ff51;
+}
+
+.page-number {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.page-number span:last-child {
+  color: lightgray; /* Change 'blue' to whatever color you prefer */
+}
+
+.progress-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.progress-bar {
+  width: 80%;
+  height: 5px;
+  background-color: #007bff;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.progress-label {
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-top: 5px;
+}
+
+.slider-container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 800px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.note-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-story-title {
+  font-weight: bold;
+}
+
+.note-story-author {
+  font-weight: normal;
+  color: gray;
+}
+
+.note-page-number {
+  color: gray;
+}
+
+.note-excerpt {
+  flex-grow: 1; /* Allows text to take up remaining space */
+  text-align: right;
 }

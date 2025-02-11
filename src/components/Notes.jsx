@@ -1,38 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NoteCard from "./NoteCard";
+import SearchBar from "./SearchBar";
 
 const Notes = () => {
-  const { storyId } = useParams(); // This will capture the :storyId from the URL
+  const { storyId } = useParams(); // Capture story ID from URL
   const [notes, setNotes] = useState([]);
+  const [filteredNotes, setFilteredNotes] = useState([]);
+  const [stories, setStories] = useState([]); // Store stories separately
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchNotes = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/notes");
-        if (!response.ok) {
-          throw new Error("Failed to fetch notes");
+        // Fetch both notes and stories
+        const [notesResponse, storiesResponse] = await Promise.all([
+          fetch("http://localhost:3001/notes"),
+          fetch("http://localhost:3001/stories"),
+        ]);
+
+        if (!notesResponse.ok || !storiesResponse.ok) {
+          throw new Error("Failed to fetch data");
         }
 
-        const data = await response.json();
+        const notesData = await notesResponse.json();
+        const storiesData = await storiesResponse.json();
+
+        setStories(storiesData); // Store stories
+
         if (storyId) {
-          // Filter notes if a specific storyId is provided in the URL
-          const filteredNotes = data.filter(note => note.story === storyId);
+          // Filter notes by story ID if present
+          const filteredNotes = notesData.filter(note => note.story === storyId);
           setNotes(filteredNotes);
         } else {
-          // Display all notes if no specific storyId is provided
-          setNotes(data);
+          setNotes(notesData);
         }
       } catch (error) {
-        console.error("Error fetching notes:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchNotes();
-  }, [storyId]); // This will re-run when the storyId changes
+    fetchData();
+  }, [storyId]); // Re-run when storyId changes
 
   if (loading) return <div>Loading notes...</div>;
 
@@ -40,15 +51,13 @@ const Notes = () => {
 
   return (
     <div>
-      <h2>{storyId ? `Notes for Story ${storyId}` : "All Notes"}</h2>
       <div className="notes-container">
         {notes.map((note) => (
-          <NoteCard key={note.id} note={note} setNotes={setNotes}/> // Map each note to NoteCard
+          <NoteCard key={note.id} note={note} setNotes={setNotes} stories={stories} />
         ))}
       </div>
     </div>
   );
 };
-
 
 export default Notes;

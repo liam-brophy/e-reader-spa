@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import HomeIcon from '@mui/icons-material/Home';
+import DescriptionIcon from '@mui/icons-material/Description'; 
+
 
 function NavBar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true); // Start in collapsed state
 
   const toggleNav = () => setIsCollapsed(!isCollapsed);
 
@@ -11,14 +14,14 @@ function NavBar() {
       <button className="toggle-btn" onClick={toggleNav}>
         ☰
       </button>
-      <nav>
+      <nav className={`nav ${isCollapsed ? "collapsed" : "expanded"}`}>
         <ul>
           <li>
             <NavLink 
               to="/" 
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >
-              Home
+             <HomeIcon />
             </NavLink>
           </li>
           <li>
@@ -26,7 +29,7 @@ function NavBar() {
               to="/notes" 
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >
-              Notes
+              <DescriptionIcon />
             </NavLink>
           </li>
         </ul>

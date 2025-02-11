@@ -11,9 +11,11 @@ const StoryCard = ({ story }) => {
 
   return (
     <div onClick={handleReadStory} className="storyCard">
-      <img src={story.image}></img>
-      <h2>{story.title}</h2>
-      <p>{story.author}</p>
+      <img className="storyCover" src={story.image}></img>
+      <div className="storyInfo">
+        <h2 className="storyTitle" >{story.title}</h2>
+        <p className="storyAuthor" >{story.author}</p>
+      </div>
     </div>
   );
 };
