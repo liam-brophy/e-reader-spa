@@ -32,6 +32,8 @@ const Notes = () => {
           // Filter notes by story ID if present
           const filteredNotes = notesData.filter(note => note.story === storyId);
           setNotes(filteredNotes);
+          setFilteredNotes(filteredNotes);
+          setFilteredNotes(notesData);
         } else {
           setNotes(notesData);
         }
@@ -45,14 +47,23 @@ const Notes = () => {
     fetchData();
   }, [storyId]); // Re-run when storyId changes
 
+  const handleSearch = (query) => {
+    const filtered = notes.filter((note) =>
+      note.text.toLowerCase().includes(query.toLowerCase()) ||
+      note.pageNumber.toString().includes(query) // You can also filter by other note fields
+    );
+    setFilteredNotes(filtered);
+  };
+
   if (loading) return <div>Loading notes...</div>;
 
-  if (notes.length === 0) return <div>No notes available for this story</div>;
+  if (filteredNotes.length === 0) return <div>No notes available for this story</div>;
 
   return (
     <div>
+      <SearchBar onSearch={handleSearch} />
       <div className="notes-container">
-        {notes.map((note) => (
+        {filteredNotes.map((note) => (
           <NoteCard key={note.id} note={note} setNotes={setNotes} stories={stories} />
         ))}
       </div>
