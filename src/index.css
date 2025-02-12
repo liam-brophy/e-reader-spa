@@ -242,9 +242,7 @@ li {
   transition: width 0.3s ease;
 }
 
-/* index.css or ReaderView.css */
 
-/* Use the Google font */
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -402,4 +400,100 @@ body {
 .note-excerpt {
   flex-grow: 1; /* Allows text to take up remaining space */
   text-align: right;
+}
+
+.search-container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+/* Style the search input field */
+.search-bar {
+  width: 100%;
+  max-width: 400px; /* Keeps a reasonable width on larger screens */
+  background-color: white;
+  border-radius: 8px;
+}
+
+/* Adjust border and shadow */
+.search-bar .MuiOutlinedInput-root {
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Customize the search icon */
+.search-icon {
+  color: #000000; /* Material UI primary color */
+}
+
+
+/* Wraps the entire note card and action buttons */
+.note-card-container {
+  display: flex;
+  align-items: flex-start; /* Aligns note content and buttons at the top */
+  gap: 10px;
+}
+
+/* Main card styling */
+.note-card {
+  flex: 1; /* Allows the note content to take up most space */
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Content area */
+.note-content {
+  flex-grow: 1;
+}
+
+/* Buttons stacked vertically */
+.note-actions {
+  margin-top: 40px;
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between buttons */
+  align-items: center;
+}
+
+/* Button styles */
+.save-button {
+  background-color: #c8fedb !important;
+  color: rgb(0, 0, 0) !important;
+}
+
+.save-button:hover {
+  background-color: #00ff0d !important;
+}
+
+.cancel-button {
+  width: 100px;
+  color: #000000 !important;
+}
+
+.cancel-button:hover {
+  background-color: rgba(244, 67, 54, 0.1) !important;
+}
+
+.edit-button,
+.delete-button {
+  color:#ddd;
+  width: 36px;
+  height: 36px;
+}
+
+.edit-button:hover {
+  background-color: rgba(0, 0, 0, 0.423);
+  color:#00ff0d
+}
+
+.delete-button:hover {
+  background-color: rgba(0, 0, 0, 0.423);
+  color:#ff0000
 }

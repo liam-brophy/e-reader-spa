@@ -6,7 +6,8 @@ import SearchBar from "./SearchBar";
 const Notes = () => {
   const { storyId } = useParams(); // Capture story ID from URL
   const [notes, setNotes] = useState([]);
-  const [filteredNotes, setFilteredNotes] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("")
+  // const [filteredNotes, setFilteredNotes] = useState([]);
   const [stories, setStories] = useState([]); // Store stories separately
   const [loading, setLoading] = useState(true);
 
@@ -32,8 +33,8 @@ const Notes = () => {
           // Filter notes by story ID if present
           const filteredNotes = notesData.filter(note => note.story === storyId);
           setNotes(filteredNotes);
-          setFilteredNotes(filteredNotes);
-          setFilteredNotes(notesData);
+          // setFilteredNotes(filteredNotes);
+          // setFilteredNotes(notesData);
         } else {
           setNotes(notesData);
         }
@@ -48,16 +49,22 @@ const Notes = () => {
   }, [storyId]); // Re-run when storyId changes
 
   const handleSearch = (query) => {
-    const filtered = notes.filter((note) =>
-      note.text.toLowerCase().includes(query.toLowerCase()) ||
-      note.pageNumber.toString().includes(query) // You can also filter by other note fields
-    );
-    setFilteredNotes(filtered);
+    // const filtered = notes.filter((note) =>
+    //   note.text.toLowerCase().includes(query.toLowerCase()) ||
+    //   note.pageNumber.toString().includes(query) // You can also filter by other note fields
+    // );
+    // setFilteredNotes(filtered);
+    setSearchQuery(query) 
   };
+
+  const filteredNotes = notes.filter((note) =>
+    note.text.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    note.page.toString().includes(searchQuery) // You can also filter by other note fields
+  );
 
   if (loading) return <div>Loading notes...</div>;
 
-  if (filteredNotes.length === 0) return <div>No notes available for this story</div>;
+  if (notes.length === 0) return <div>No notes available for this story</div>; //"Make some notes!" -> link elsewhere
 
   return (
     <div>
