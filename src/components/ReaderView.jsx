@@ -15,16 +15,11 @@ const ReaderView = () => {
   const [commentText, setCommentText] = useState("");
   const [currentPage, setCurrentPage] = useState(0); // Track the current page
   const [pageContent, setPageContent] = useState("");
-  const [pageSize, setPageSize] = useState(2000); // Number of characters per page
+  const [pageSize, setPageSize] = useState(1000); // Number of characters per page
   const [totalPages, setTotalPages] = useState(0);
   const [progress, setProgress] = useState(0); // Total number of pages
-  const [fontSize, setFontSize] = useState(16);
-  const contentRef = useRef(null); // Reference to the content for height calculation
 
   const popoverRef = useRef(null);
-
-
-  // ____________data_______________
 
   // FETCH story and content
   useEffect(() => {
@@ -42,7 +37,7 @@ const ReaderView = () => {
         const text = await storyResponse.text();
         setStoryContent(text);
 
-        // sets the total number of pages based on the content length and page size
+        // Set the total number of pages based on the content length and page size
         const total = Math.ceil(text.length / pageSize);
         setTotalPages(total);
 
@@ -52,14 +47,24 @@ const ReaderView = () => {
         setLoading(false);
       }
     };
+
     fetchStoryData();
   }, [storyId, pageSize]);
 
+  // Handle pagination logic
+  useEffect(() => {
+    const start = currentPage * pageSize;
+    const end = start + pageSize;
+    setPageContent(storyContent.slice(start, end));
 
-
-
-
-  // ____________COMMENTS_______________
+    // update the progress (slider value) based on current page
+    if (totalPages > 0) {
+      const progressValue = (currentPage / totalPages) * 100;
+      setProgress(progressValue);
+    } else {
+      setProgress(0); // If totalPages is 0 or invalid, set progress to 0
+    }
+  }, [currentPage, storyContent, pageSize, totalPages]);
 
   // handle clicks outside popover to close it
   useEffect(() => {
@@ -111,58 +116,6 @@ const ReaderView = () => {
     }
   };
 
-
-
-
-  // ____________PAGINATION_______________
-
-  const calculatePagination = () => {
-    if (contentRef.current) {
-      // Measure height of the content container
-      const pageHeight = contentRef.current.clientHeight;
-
-      // Estimate characters per page based on font size
-      const charPerLine = Math.floor(pageHeight / fontSize);
-      const linesPerPage = 30; // Adjust as needed for your design (estimate number of lines that fit on a page)
-
-      const charsPerPage = charPerLine * linesPerPage;
-
-      setTotalPages(Math.ceil(storyContent.length / charsPerPage));
-
-      // Load content for the first page
-      setPageContent(storyContent.slice(0, charsPerPage));
-    }
-  };
-
-  const increaseFontSize = () => setFontSize((prevSize) => prevSize + 2);
-  const decreaseFontSize = () => setFontSize((prevSize) => Math.max(prevSize - 2, 12)); // Minimum size 12px
-
-  // Handle the change in page number
-  const changePage = (direction) => {
-    const newPage = currentPage + direction;
-    if (newPage >= 0 && newPage < totalPages) {
-      setCurrentPage(newPage);
-      const start = newPage * getCharactersPerPage();
-      const end = start + getCharactersPerPage();
-      setPageContent(storyContent.slice(start, end));
-    }
-  };
-
-  const handleSliderChange = (event, newValue) => {
-    const newPage = Math.floor((newValue / 100) * totalPages);
-    setCurrentPage(newPage);
-    const start = newPage * getCharactersPerPage();
-    const end = start + getCharactersPerPage();
-    setPageContent(storyContent.slice(start, end));
-  };
-  // Get characters per page based on current font size
-  const getCharactersPerPage = () => {
-    const pageHeight = contentRef.current ? contentRef.current.clientHeight : 500; // Default height if ref is null
-    const charPerLine = Math.floor(pageHeight / fontSize); // Characters per line based on font size
-    const linesPerPage = 30; // Adjust lines per page
-    return charPerLine * linesPerPage;
-  };
-  
   // handle keydown for left and right arrow keys page turning
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -183,73 +136,82 @@ const ReaderView = () => {
   }, [currentPage, totalPages]); // Depend on currentPage and totalPages to update correctly
 
 
-  useEffect(() => {
-    document.documentElement.style.setProperty('--reader-font-size', `${fontSize}px`);
-    calculatePagination(); // Recalculate pagination when font size changes
-  }, [fontSize]);
-
-
-
-  useEffect(() => {
-    if (storyContent) {
-      const charsPerPage = getCharactersPerPage();
-      setTotalPages(Math.ceil(storyContent.length / charsPerPage));
-      setPageContent(storyContent.slice(0, charsPerPage)); // Display first page content
+  const handleSliderChange = (event, newValue) => {
+    if (!isNaN(newValue)) {
+      setCurrentPage(Math.floor(newValue * totalPages / 100)); // convert slider value to page number
     }
-  }, [storyContent, fontSize]);
+  };
 
   if (loading) return <div>Loading...</div>;
   if (!story) return <div>Story not found</div>;
 
-
-
-  // __________________________________________________________________________________________________
-
   return (
     <div>
-      <div className="running-hed">
-        <p className="reader-title">{story.title} | </p>
-        <p className="reader-author"> | {story.author}</p>
-      </div>
-
-     {/* Font Size Controls */}
-      <div className="font-controls">
-        <button onClick={decreaseFontSize}>A-</button>
-        <button onClick={increaseFontSize}>A+</button>
-      </div>
-
-      <div className="reader-text" ref={contentRef}>
+      <h4 className="reader-title">{story.title}</h4>
+      <p className="reader-author">{story.author}</p>
+      <div className="reader-text" onMouseUp={handleTextSelection}>
         <pre>{pageContent}</pre>
+
+        {/* Comment Controls */}
+        {showPopover && (
+          <div
+            ref={popoverRef}
+            className="comment-popover"
+            style={{ top: popoverPosition.y, left: popoverPosition.x }}
+          >
+            <textarea
+              className="comment-textarea"
+              placeholder="Add a comment"
+              onChange={(e) => setCommentText(e.target.value)}
+            />
+            <button className="comment-button" onClick={handleSaveComment}>
+              Save Comment
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Pagination Controls */}
       <div className="pagination-controls">
-        <button onClick={() => changePage(-1)} disabled={currentPage === 0}>
-          <NavigateBeforeIcon />
+        <button
+          className="prev-button"
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 0}
+        >
+         <NavigateBeforeIcon/>
         </button>
 
-        <button onClick={() => changePage(1)} disabled={currentPage === totalPages - 1}>
-          <NavigateNextIcon />
+        <button
+          className="next-button"
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === totalPages - 1}
+        >
+          <NavigateNextIcon/>
         </button>
       </div>
 
       <div className="page-number">
-        <span>{currentPage + 1}</span> / <span>{totalPages}</span>
-      </div>
+          <span>{currentPage + 1}</span>
+          <span>/{totalPages}</span>
+        </div>
 
       <div className="slider-container">
+        {/* Progress Slider */}
         <Slider
-          value={(currentPage / totalPages) * 100}
+          value={progress}
           onChange={handleSliderChange}
           aria-labelledby="progress-slider"
           min={0}
           max={100}
           valueLabelDisplay="auto"
-          valueLabelFormat={(value) => `${Math.floor(value)}%`}
+          valueLabelFormat={(value) => `${Math.floor(value)}%`} // Display progress as percentage
+          sx={{
+            width: '100%', // Set slider to fill the width of its container
+            marginTop: 2
+          }}
         />
       </div>
     </div>
   );
-};
-
-export default ReaderView;
+}
+  export default ReaderView;
