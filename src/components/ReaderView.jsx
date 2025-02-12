@@ -147,8 +147,10 @@ const ReaderView = () => {
 
   return (
     <div>
-      <h4 className="reader-title">{story.title}</h4>
-      <p className="reader-author">{story.author}</p>
+      <div className="running-hed">
+      <p className="reader-title">{story.title} |</p>
+      <p className="reader-author">| {story.author}</p>
+      </div>
       <div className="reader-text" onMouseUp={handleTextSelection}>
         <pre>{pageContent}</pre>
 

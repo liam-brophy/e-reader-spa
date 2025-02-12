@@ -4,13 +4,22 @@ import SearchBar from './SearchBar';
 
 const Home = ({ stories }) => {
   const [filteredStories, setFilteredStories] = useState(stories);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // initialize the filteredStories when stories prop changes?
     setFilteredStories(stories);
   }, [stories]);
 
   const handleSearch = (query) => {
+    setSearchQuery(query); // Store the current search query
+
+    // if search is empty, show alllllll the stories
+    if (!query.trim()) {
+      setFilteredStories(stories);
+      return;
+    }
+
+    // Filter stories based on title or author
     const filtered = stories.filter((story) =>
       story.title.toLowerCase().includes(query.toLowerCase()) ||
       story.author.toLowerCase().includes(query.toLowerCase())
@@ -21,7 +30,14 @@ const Home = ({ stories }) => {
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      <StoryList stories={filteredStories.length ? filteredStories : stories} />
+      {/* Only show stories if search is empty OR there are matches */}
+      {(!searchQuery.trim() || filteredStories.length > 0) ? (
+        <StoryList stories={filteredStories} />
+      ) : (
+        <div className="no-results">
+          No stories found matching "{searchQuery}"
+        </div>
+      )}
     </div>
   );
 };
