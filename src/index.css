@@ -181,7 +181,6 @@ li {
   padding: 0.5rem;
   border-radius: 5px;
   z-index: 10;
-  width: 200px;
 }
 
 .comment-textarea {
@@ -247,10 +246,14 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+:root {
+  --reader-font-size: 16px; /* Default font size */
+}
+
 /* Styling for the reader text */
 .reader-text {
   text-align: justify; /* Justify the text */
-  padding: 20px;
+  padding: 50px;
   margin: 0 auto;
   max-width: 800px;
   height: 80vh;
@@ -258,35 +261,42 @@ body {
   box-sizing: border-box;
   word-wrap: break-word; /* This breaks long words */
   overflow-wrap: break-word; /* Modern alternative, also breaks long words */
+  /* background-color: #00ffd9; */
 }
 
 .reader-text pre {
   font-family: Playfair-Display;
-  font-size: 1rem;
+  font-size: var(--reader-font-size);
   line-height: 1.6;
   word-wrap: break-word; /* Ensure words break within <pre> as well */
   overflow-wrap: break-word; /* Ensure overflow wraps in the <pre> */
   white-space: pre-wrap; /* Make sure text wraps properly in pre-formatted text */
 }
 
+.running-hed{
+  margin-top:50px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; 
+
+}
+
 .reader-title {
-  font-family: 'Roboto', sans-serif; /* Or your selected font from Google Fonts */
-  font-size: 1.5rem;
+  font-family: "argent-pixel-cf", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-weight: bold;
   text-align: center; /* Center align the title */
   margin-top: 0;
-  padding-top: 20px;
+  color: #858585;
 }
 
 .reader-author {
-  font-family: 'Roboto', sans-serif; /* Use the same font or a complementary one */
-  font-size: 1.1rem;
+  font-family: 'argent-pixel-cf', sans-serif; /* Use the same font or a complementary one */
   font-weight: normal;
   text-align: center; /* Center align the author */
   margin-top: 0;
-  padding-top: 5px;
-  margin-bottom: 20px;
-  color: #555; /* Slightly gray for the author’s name */
+  color: #bab8b8; /* Slightly gray for the author’s name */
 }
 
 /* Ensure each page has a uniform height and is scrollable */
@@ -337,7 +347,7 @@ body {
 
 .prev-button:hover,
 .next-button:hover {
-  background-color: #00ff51;
+  background-color: #00ff50;
 }
 
 .page-number {
@@ -377,6 +387,31 @@ body {
   overflow: hidden;
   box-sizing: border-box;
 }
+
+.font-controls {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; 
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.font-controls button {
+  padding: 5px 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.font-controls button:hover {
+  background-color: #f0f0f0;
+}
+
+
+
+
+
+/* ________ */
 
 .note-header{
   display: flex;
@@ -469,7 +504,7 @@ body {
 }
 
 .save-button:hover {
-  background-color: #00ff0d !important;
+  background-color: #00ff50;
 }
 
 .cancel-button {
@@ -490,10 +525,12 @@ body {
 
 .edit-button:hover {
   background-color: rgba(0, 0, 0, 0.423);
-  color:#00ff0d
+  color:#00ff50
 }
 
 .delete-button:hover {
   background-color: rgba(0, 0, 0, 0.423);
   color:#ff0000
 }
+
+

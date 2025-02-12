@@ -49,17 +49,12 @@ const Notes = () => {
   }, [storyId]); // Re-run when storyId changes
 
   const handleSearch = (query) => {
-    // const filtered = notes.filter((note) =>
-    //   note.text.toLowerCase().includes(query.toLowerCase()) ||
-    //   note.pageNumber.toString().includes(query) // You can also filter by other note fields
-    // );
-    // setFilteredNotes(filtered);
     setSearchQuery(query) 
   };
 
   const filteredNotes = notes.filter((note) =>
     note.text.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    note.page.toString().includes(searchQuery) // You can also filter by other note fields
+    note.page.toString().includes(searchQuery) || note.comment.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   if (loading) return <div>Loading notes...</div>;
