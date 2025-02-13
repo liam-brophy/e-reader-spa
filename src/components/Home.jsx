@@ -5,36 +5,25 @@ import { StoriesContext } from "../StoriesContext";
 
 const Home = () => {
   const stories = useContext(StoriesContext);
-  const [filteredStories, setFilteredStories] = useState(stories);
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    setFilteredStories(stories);
-  }, [stories]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-
-    if (!query.trim()) {
-      setFilteredStories(stories);
-      return;
-    }
-
-    const filtered = stories.filter((story) =>
-      story.title.toLowerCase().includes(query.toLowerCase()) ||
-      story.author.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredStories(filtered);
   };
+
+  const filtered = stories.filter((story) => (
+    story.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    story.author.toLowerCase().includes(searchQuery.toLowerCase())
+  ));
 
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      {(!searchQuery.trim() || filteredStories.length > 0) ? (
-        <StoryList stories={filteredStories} />
+      {!searchQuery.trim() || filtered.length > 0 ? (
+        <StoryList stories={filtered} />
       ) : (
         <div className="no-results">
-          No stories found matching "{searchQuery}"
+          No stories found matching '{searchQuery}'
         </div>
       )}
     </div>

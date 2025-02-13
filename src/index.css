@@ -266,7 +266,7 @@ body {
 
 .reader-text pre {
   font-family: Playfair-Display;
-  font-size: var(--reader-font-size);
+  font-size: var(--reader-font-size, 16px);
   line-height: 1.6;
   word-wrap: break-word; /* Ensure words break within <pre> as well */
   overflow-wrap: break-word; /* Ensure overflow wraps in the <pre> */
@@ -335,8 +335,8 @@ body {
 
 .prev-button,
 .next-button {
-  background-color: #000000;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   border: none;
   padding: 5px 5px;
   font-size: 1rem;
@@ -381,26 +381,36 @@ body {
 }
 
 .slider-container {
+  z-index: 1000;
   padding: 20px;
   margin: 0 auto;
   max-width: 800px;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-sizing: border-box;
 }
 
 .font-controls {
+  /* position: absolute;  */
+  /* margin-top: 500px;  */
+  margin-left: 800px;
+  width: 100%;
   display: flex;
-  justify-content: center; /* Center horizontally */
+  justify-content: center; 
   align-items: center; 
   gap: 8px;
   margin-bottom: 10px;
 }
 
 .font-controls button {
-  padding: 5px 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 5px 5px;
+  font-size: 1rem;
   cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
 }
 
 .font-controls button:hover {
@@ -535,4 +545,9 @@ body {
 
 .no-results{
   text-align: center;
+}
+
+
+.bottom-toggles-reader{
+  display: flex;
 }
