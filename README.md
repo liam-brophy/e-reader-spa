@@ -1,5 +1,4 @@
-### Storied
-## e-reader SPA
+# Storied: e-reader SPA
 
 ## Overview
 
@@ -34,22 +33,22 @@ Storied is a single-page web application built with React that allows users to r
 Either use this link, or 
 
 Clone the repository:
-
+```
 git clone https://github.com/yourusername/ereader-spa.git
 cd ereader-spa
-
+```
 Install dependencies:
-
+```
 npm install
-
+```
 Start the JSON Server:
-
+```
 json-server --watch db.json --port 3001
-
+```
 Start the React application:
-
-npm start
-
+```
+npm run dev
+```
 
 ## How to Use
 
@@ -81,7 +80,7 @@ Introduce cloud storage for saving user notes persistently.
 If you'd like to contribute, please fork the repository and submit a pull request with your changes.
 
 
-Contact
+##Contact
 
 This project was made by [Liam Brophy](https://github.com/liam-brophy) For questions or feature requests, please reach out via GitHub Issues or email [liambrophy.design@gmail.com].
 
