@@ -1,18 +1,24 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./components/Layout";
 import Home from "./components/Home";
-import ReaderView from "./components/ReaderView";
 import Notes from "./components/Notes";
 
+const createRoutes = (stories) =>
+  createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />, // ensures NavBar is always present?
+      children: [
+        { index: true, element: <Home stories={stories} /> }, // Home Page
+        { path: "notes", element: <Notes /> }, // Notes Page
+      ],
+    },
+  ]);
+
 const AppRoutes = ({ stories }) => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home stories={stories} />} />
-      <Route path="/reader/:storyId" element={<ReaderView />} />
-      <Route path="/notes" element={<Notes />} />
-    </Routes>
-  );
+  const router = createRoutes(stories);
+
+  return <RouterProvider router={router} />;
 };
 
 export default AppRoutes;
-//MUST REWRITE AS V 6.1, AND MUST REWRITE TO HANDLE NULL PAGES
