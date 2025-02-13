@@ -1,3 +1,47 @@
+[data-theme="light"] {
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+}
+
+[data-theme="dark"] {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+
+:root {
+  --reader-font-size: 16px;
+  
+  /* Global background and text colors for light/dark modes */
+  --background-color-light: white;
+  --background-color-dark: black;
+  --text-color-light: black;
+  --text-color-dark: white;
+  
+  /* Note card styles for light/dark modes */
+  --note-card-background-light: white;
+  --note-card-background-dark: #333333;
+  --note-card-border-light: black;
+  --note-card-border-dark: white;
+  --note-card-text-light: black;
+  --note-card-text-dark: white;
+
+  --navbar-container-background-light: white;  /* Light theme background for the navbar */
+  --navbar-container-background-dark: black; 
+
+  --theme-toggle-background-light: white;
+  --theme-toggle-background-back: black;
+
+  --toggle-btn-color-light: #7c7c7c;
+  --toggle-btn-color-dark: #7c7c7c;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+}
+
+
 .navbar-container {
   position: fixed; /* Fix the navbar at the top left of the page */
   top: 0;
@@ -10,16 +54,30 @@
   flex-direction: column;
 }
 
+[data-theme="light"] .navbar-container {
+  background-color: var(--navbar-container-background-light);
+}
+
+[data-theme="dark"] .navbar-container {
+  background-color: var(--navbar-container-background-dark);
+}
+
 .toggle-btn {
   padding-top: 20px;
   padding-left: 25px;
   font-size: 2rem;
-  color: #000000;
+  color: #7c7c7c;
   background: none;
   border: none;
   cursor: pointer;
   transition: color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 }
+
+
+[data-theme="dark"] .toggle-btn {
+  color: var(--toggle-btn-color-dark);
+} 
+
 
 /* Hover effect for the toggle button */
 .toggle-btn:hover {
@@ -43,7 +101,6 @@ nav {
   left: 0;
   width: 100%;
   display: none; /* Hide the nav by default */
-  background-color: rgba(255, 255, 255, 0.9); /* Optional: add a background */
 }
 
 .nav.expanded {
@@ -77,7 +134,7 @@ li {
   display: flex;
   align-items: center;
   padding: 0.5rem;
-  color: rgb(124, 124, 124); /* Slight gray font color */
+  color: #7c7c7c; /* Slight gray font color */
   text-decoration: none;
   transition: color 0.3s ease; /* Smooth transition for color change */
 }
@@ -89,9 +146,32 @@ li {
 
 /* Active link style (keep the active-link class if desired) */
 .nav ul li a.active-link {
-  color: rgb(0, 0, 0); /* Full white for active link */
+  color: rgb(210, 210, 210); /* Full white for active link */
 }
 
+.theme-toggle{
+  color: #7c7c7c;
+  padding-left: 0.55rem;
+  display: flex;
+  align-items: center;
+  border: none;
+  text-decoration: none;
+  background-color: white;
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.theme-toggle:hover {
+  color: rgb(0, 255, 110);
+  transform: scale(1.1);
+}
+
+[data-theme="light"] .theme-toggle {
+  background-color: var(--navbar-container-background-light);
+}
+
+[data-theme="dark"] .theme-toggle {
+  background-color: var(--navbar-container-background-dark);
+}
 
 .storyList {
   display: grid;
@@ -175,16 +255,19 @@ li {
 /* Popover container */
 .comment-popover {
   position: absolute;
+  display: flex;
   background-color: white;
   border: 1px solid #ddd;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
   padding: 0.5rem;
   border-radius: 5px;
   z-index: 10;
+  gap: 5px;
 }
 
 .comment-textarea {
-  width: 100%;
+  font-family: "Arial";
+  width: 90%;
   height: 60px;
   margin-bottom: 0.5rem;
   border: 1px solid #ddd;
@@ -193,12 +276,18 @@ li {
 }
 
 .comment-button {
-  background-color: #007bff;
-  color: white;
+  background-color: #a8fbbd;
+  height: 25%;
+  color: #ffffff;
   border: none;
-  padding: 0.4rem 0.8rem;
   border-radius: 5px;
+  /* padding: 0.4rem 0.8rem; */
+  /* border-radius: 5px; */
   cursor: pointer;
+}
+
+.comment-button:hover {
+  background-color: #00ff40;
 }
 
 .notes-container {
@@ -209,17 +298,31 @@ li {
 }
 
 .note-card {
-  width: 500px; /* fixed width for allllll cards */
-  border: 0.5px solid #000000;
+  width: 500px; /* fixed width for all cards */
+  border: 0.5px solid var(--note-card-border-light); /* Default for light theme */
   padding: 15px;
   margin: 10px 0;
-  background-color: #ffffff;
+  background-color: var(--note-card-background-light); /* Default for light theme */
   border-radius: 8px;
-  text-align: left;
+  color: var(--note-card-text-light); /* Default for light theme */
+}
+
+[data-theme="dark"] .note-card {
+  background-color: var(--note-card-background-dark);
+  border: 0.5px solid var(--note-card-border-dark);
+  color: var(--note-card-text-dark);
 }
 
 .note-card p {
+  color: var(--note-card-text-color);
   margin: 5px 0;
+}
+
+.note-comment{
+margin-top: 15px;
+font-weight: bold;
+padding-top: 10px;
+border-top: solid .5px#000;
 }
 
 .notes-container {
@@ -241,14 +344,6 @@ li {
   transition: width 0.3s ease;
 }
 
-
-body {
-  font-family: 'Roboto', sans-serif;
-}
-
-:root {
-  --reader-font-size: 16px; /* Default font size */
-}
 
 /* Styling for the reader text */
 .reader-text {
@@ -325,11 +420,6 @@ body {
 
 
 .pagination-buttons {
-  display: flex;
-  justify-content: space-between; /* Ensures buttons are aligned left and right */
-  width: 100%;
-  position: absolute;
-  top: 50%;
   transform: translateY(-50%); /* Centers the buttons vertically */
 }
 
@@ -347,7 +437,7 @@ body {
 
 .prev-button:hover,
 .next-button:hover {
-  background-color: #00ff50;
+  color: #00ff50;
 }
 
 .page-number {
@@ -390,20 +480,20 @@ body {
 }
 
 .font-controls {
-  /* position: absolute;  */
+  position: relative; 
   /* margin-top: 500px;  */
-  margin-left: 800px;
+  margin-left: 350px;
   width: 100%;
   display: flex;
   justify-content: center; 
   align-items: center; 
-  gap: 8px;
+  gap: 2px;
   margin-bottom: 10px;
 }
 
 .font-controls button {
   background-color: #ffffff;
-  color: rgb(0, 0, 0);
+  color: rgb(167, 164, 164);
   border: none;
   padding: 5px 5px;
   font-size: 1rem;
@@ -415,6 +505,7 @@ body {
 
 .font-controls button:hover {
   background-color: #f0f0f0;
+  color: rgb(0, 0, 0);
 }
 
 

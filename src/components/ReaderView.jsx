@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Slider } from "@mui/material";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import CommentBankIcon from '@mui/icons-material/CommentBank';
 import { useCallback } from "react";
 
 const ReaderView = () => {
@@ -214,7 +215,7 @@ const ReaderView = () => {
             onChange={(e) => setCommentText(e.target.value)}
           />
           <button className="comment-button" onClick={handleSaveComment}>
-            Save Comment
+            <CommentBankIcon />
           </button>
         </div>
       )}

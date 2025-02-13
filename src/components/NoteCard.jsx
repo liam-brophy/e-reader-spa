@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IconButton, TextField, Button } from "@mui/material";
 import { Edit, Delete, Save, Cancel } from "@mui/icons-material";
 
+
 const NoteCard = ({ note, setNotes, stories }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedComment, setUpdatedComment] = useState(note.comment);
@@ -42,6 +43,8 @@ const NoteCard = ({ note, setNotes, stories }) => {
       .catch((error) => console.error("Error during DELETE request:", error));
   };
 
+
+
   const story = stories.find((story) => story.id === note.story);
   const storyTitle = story?.title || "Unknown Story";
   const storyAuthor = story?.author || "Unknown Author";
@@ -73,7 +76,9 @@ const NoteCard = ({ note, setNotes, stories }) => {
               />
             </>
           ) : (
-            <strong>{note.comment}</strong>
+            <div className="note-comment">
+            <p>{note.comment}</p>
+            </div>
           )}
         </div>
 

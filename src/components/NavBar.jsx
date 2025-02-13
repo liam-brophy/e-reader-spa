@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { useTheme } from "../ThemeContext";
+import BedtimeIcon from '@mui/icons-material/Bedtime';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
 
 
 function NavBar() {
@@ -34,8 +36,8 @@ function NavBar() {
             </NavLink>
           </li>
           <li>
-        <button onClick={toggleTheme}>
-        {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
+        <button className="theme-toggle" onClick={toggleTheme}>
+        {theme === "light" ? <BedtimeIcon /> : <WbSunnyIcon />}
       </button>
       </li>
         </ul>
