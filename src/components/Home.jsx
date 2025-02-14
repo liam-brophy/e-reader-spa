@@ -1,20 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import StoryList from "./StoryList";
-import SearchBar from './SearchBar';
+import SearchBar from "./SearchBar";
 import { StoriesContext } from "../StoriesContext";
 
 const Home = () => {
-  const stories = useContext(StoriesContext);
-  const [searchQuery, setSearchQuery] = useState('');
+  const { stories } = useContext(StoriesContext); 
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
 
-  const filtered = stories.filter((story) => (
-    story.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    story.author.toLowerCase().includes(searchQuery.toLowerCase())
-  ));
+  const filtered = Array.isArray(stories)
+    ? stories.filter(
+        (story) =>
+          story.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          story.author.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   return (
     <div>

@@ -1,8 +1,10 @@
 import React from "react";
 import StoryCard from "./StoryCard";
+import StoryUpload from "./StoryUpload"
 import '../index.css';
 
-const StoryList = ({ stories }) => {
+const StoryList = ({ stories, handleUpload}) => {
+
   return (
 <div className="storyList">
       {stories.length === 0 ? (
@@ -12,6 +14,7 @@ const StoryList = ({ stories }) => {
           <StoryCard key={story.id} story={story} />
         ))
       )}
+      {/* <StoryUpload onUpload={handleUpload} /> */}
     </div>
   );
 };

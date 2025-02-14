@@ -42,6 +42,8 @@ body {
 }
 
 
+/* _______NavBar Styles______ */
+
 .navbar-container {
   position: fixed; /* Fix the navbar at the top left of the page */
   top: 0;
@@ -73,11 +75,9 @@ body {
   transition: color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 }
 
-
 [data-theme="dark"] .toggle-btn {
   color: var(--toggle-btn-color-dark);
 } 
-
 
 /* Hover effect for the toggle button */
 .toggle-btn:hover {
@@ -173,6 +173,13 @@ li {
   background-color: var(--navbar-container-background-dark);
 }
 
+
+
+
+
+
+/* _______StoryList Styles______ */
+
 .storyList {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Default 3 columns */
@@ -252,6 +259,16 @@ li {
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.8);
 }
+
+
+
+
+
+
+/* _______Comment Popover Styles______ */
+
+
+
 /* Popover container */
 .comment-popover {
   position: absolute;
@@ -289,6 +306,9 @@ li {
 .comment-button:hover {
   background-color: #00ff40;
 }
+
+
+/* _______Notes Styles______ */
 
 .notes-container {
   display: flex;
@@ -330,6 +350,106 @@ border-top: solid .5px#000;
   flex-direction: column;
   gap: 15px;
 }
+
+.note-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-story-title {
+  font-weight: bold;
+}
+
+.note-story-author {
+  font-weight: normal;
+  color: gray;
+}
+
+.note-page-number {
+  color: gray;
+}
+
+.note-excerpt {
+  flex-grow: 1; /* Allows text to take up remaining space */
+  text-align: right;
+}
+
+/* Wraps the entire note card and action buttons */
+.note-card-container {
+  display: flex;
+  align-items: flex-start; /* Aligns note content and buttons at the top */
+  gap: 10px;
+}
+
+/* Main card styling */
+.note-card {
+  flex: 1; /* Allows the note content to take up most space */
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Content area */
+.note-content {
+  flex-grow: 1;
+}
+
+/* Buttons stacked vertically */
+.note-actions {
+  margin-top: 40px;
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between buttons */
+  align-items: center;
+}
+
+/* Button styles */
+.save-button {
+  background-color: #c8fedb !important;
+  color: rgb(0, 0, 0) !important;
+}
+
+.save-button:hover {
+  background-color: #00ff50;
+}
+
+.cancel-button {
+  width: 100px;
+  color: #000000 !important;
+}
+
+.cancel-button:hover {
+  background-color: rgba(244, 67, 54, 0.1) !important;
+}
+
+.edit-button,
+.delete-button {
+  color:#ddd;
+  width: 36px;
+  height: 36px;
+}
+
+.edit-button:hover {
+  background-color: rgba(0, 0, 0, 0.423);
+  color:#00ff50
+}
+
+.delete-button:hover {
+  background-color: rgba(0, 0, 0, 0.423);
+  color:#ff0000
+}
+
+
+
+
+
+
+/* _______ReaderView Styles______ */
 
 .progress-bar-container {
   width: 100%;
@@ -508,35 +628,15 @@ border-top: solid .5px#000;
   color: rgb(0, 0, 0);
 }
 
-
-
-
-
-/* ________ */
-
-.note-header{
+.bottom-toggles-reader{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.note-story-title {
-  font-weight: bold;
-}
 
-.note-story-author {
-  font-weight: normal;
-  color: gray;
-}
 
-.note-page-number {
-  color: gray;
-}
 
-.note-excerpt {
-  flex-grow: 1; /* Allows text to take up remaining space */
-  text-align: right;
-}
+/* ____SearchBar Styles____ */
+
 
 .search-container {
   margin-top: 100px;
@@ -564,81 +664,88 @@ border-top: solid .5px#000;
   color: #000000; /* Material UI primary color */
 }
 
-
-/* Wraps the entire note card and action buttons */
-.note-card-container {
-  display: flex;
-  align-items: flex-start; /* Aligns note content and buttons at the top */
-  gap: 10px;
-}
-
-/* Main card styling */
-.note-card {
-  flex: 1; /* Allows the note content to take up most space */
-  background: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-}
-
-/* Content area */
-.note-content {
-  flex-grow: 1;
-}
-
-/* Buttons stacked vertically */
-.note-actions {
-  margin-top: 40px;
-  margin-left: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px; /* Space between buttons */
-  align-items: center;
-}
-
-/* Button styles */
-.save-button {
-  background-color: #c8fedb !important;
-  color: rgb(0, 0, 0) !important;
-}
-
-.save-button:hover {
-  background-color: #00ff50;
-}
-
-.cancel-button {
-  width: 100px;
-  color: #000000 !important;
-}
-
-.cancel-button:hover {
-  background-color: rgba(244, 67, 54, 0.1) !important;
-}
-
-.edit-button,
-.delete-button {
-  color:#ddd;
-  width: 36px;
-  height: 36px;
-}
-
-.edit-button:hover {
-  background-color: rgba(0, 0, 0, 0.423);
-  color:#00ff50
-}
-
-.delete-button:hover {
-  background-color: rgba(0, 0, 0, 0.423);
-  color:#ff0000
-}
-
 .no-results{
   text-align: center;
 }
 
 
-.bottom-toggles-reader{
-  display: flex;
+
+
+
+
+
+
+
+
+/* ______StoryUpload Styles_____ */
+
+.story-upload-container {
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.story-upload-dropzone {
+  position: relative;
+  border: 2px dashed #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.story-upload-dropzone--active {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.story-upload-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.story-upload-icon {
+  margin: 0 auto;
+  height: 3rem;
+  width: 3rem;
+  color: #9ca3af;
+}
+
+.story-upload-text {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.story-upload-subtext {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.story-upload-alert {
+  margin-top: 1rem;
+}
+
+.story-upload-alert-icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.upload-page {
+  padding: 2rem;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.upload-page-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #6d6d6d;
 }

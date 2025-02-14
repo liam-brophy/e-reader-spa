@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { useTheme } from "../ThemeContext";
 import BedtimeIcon from '@mui/icons-material/Bedtime';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import UploadIcon from '@mui/icons-material/Upload';
 
 
 function NavBar() {
@@ -35,6 +36,9 @@ function NavBar() {
               <DescriptionIcon />
             </NavLink>
           </li>
+          <li>
+      <Link to="/upload" className="nav-link"><UploadIcon/></Link>
+      </li>
           <li>
         <button className="theme-toggle" onClick={toggleTheme}>
         {theme === "light" ? <BedtimeIcon /> : <WbSunnyIcon />}
