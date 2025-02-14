@@ -2,7 +2,7 @@
   "name": "your-app-name",
   "private": true,
   "version": "0.1.0",
-  "homepage": "https://<liam-brophy>.github.io/<e-reader-spa>",
+  "homepage": "https://liam-brophy.github.io/e-reader-spa",
   "type": "module",
   "scripts": {
     "dev": "vite",
