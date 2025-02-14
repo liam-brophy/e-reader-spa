@@ -30,8 +30,6 @@ Storied is a single-page web application built with React that allows users to r
 
 ## Where to Use
 
-Either use [this link](https://liam-brophy.github.io/e-reader-spa/), or 
-
 Clone the repository:
 ```
 git clone https://github.com/yourusername/ereader-spa.git
