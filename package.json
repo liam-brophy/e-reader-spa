@@ -1,14 +1,17 @@
 {
-  "name": "e-reader-spa",
+  "name": "your-app-name",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "homepage": "https://<liam-brophy>.github.io/<e-reader-spa>",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "json-server --watch db.json -p 3001"
+    "server": "json-server --watch db.json -p 3001",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -30,6 +33,7 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
+    "gh-pages": "^6.3.0",
     "globals": "^15.14.0",
     "vite": "^6.1.0"
   }
